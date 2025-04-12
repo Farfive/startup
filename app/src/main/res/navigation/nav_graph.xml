@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/progressFragment">
+
+    <fragment
+        android:id="@+id/progressFragment"
+        android:name="com.example.styleap.ui.progress.ProgressFragment"
+        android:label="Progress"
+        tools:layout="@layout/fragment_progress">
+        <action
+            android:id="@+id/action_progressFragment_to_userProfileFragment"
+            app:destination="@id/userProfileFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out" />
+        <action
+            android:id="@+id/action_progressFragment_to_companyProfileFragment"
+            app:destination="@id/companyProfileFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/userProfileFragment"
+        android:name="com.example.styleap.ui.profile.UserProfileFragment"
+        android:label="User Profile"
+        tools:layout="@layout/fragment_user_profile">
+        <argument
+            android:name="username"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="points"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <action
+            android:id="@+id/action_userProfileFragment_to_progressFragment"
+            app:destination="@id/progressFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/companyProfileFragment"
+        android:name="com.example.styleap.ui.profile.CompanyProfileFragment"
+        android:label="Company Profile"
+        tools:layout="@layout/fragment_company_profile">
+        <argument
+            android:name="companyName"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="companyType"
+            app:argType="string"
+            app:nullable="true" />
+        <argument
+            android:name="points"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="employees"
+            app:argType="string[]"
+            app:nullable="true" />
+        <action
+            android:id="@+id/action_companyProfileFragment_to_progressFragment"
+            app:destination="@id/progressFragment"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out" />
+    </fragment>
+</navigation>

@@ -1,0 +1,71 @@
+# .github/workflows/android-ci.yml
+
+name: Android CI
+
+# Controls when the workflow will run
+on:
+  push:
+    branches: [ "main", "develop" ] # Trigger on pushes to main or develop branches
+  pull_request:
+    branches: [ "main", "develop" ] # Trigger on pull requests targeting main or develop
+
+jobs:
+  build:
+    name: Build & Test
+    runs-on: ubuntu-latest # Use the latest Ubuntu runner
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4 # Checks out your repository under $GITHUB_WORKSPACE
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17' # Match the version used in your build.gradle.kts
+          distribution: 'temurin' # Use Eclipse Temurin distribution
+          cache: 'gradle' # Cache Gradle dependencies
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x ./gradlew # Make the gradlew script executable
+
+      - name: Run Lint Check
+        run: ./gradlew lintDebug # Run lint checks for the debug variant
+
+      - name: Run Unit Tests
+        run: ./gradlew testDebugUnitTest # Run local unit tests for the debug variant
+
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug # Build the debug APK
+
+      # Optional: Upload APK artifact (useful for sharing debug builds)
+      - name: Upload Debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-debug-apk # Name of the artifact
+          path: app/build/outputs/apk/debug/app-debug.apk # Path to the generated APK
+
+      # --- Optional Steps for Release Build (Requires Secure Secret Handling) ---
+      # If you want to build a release bundle, you'll need to securely provide
+      # the keystore file and passwords as secrets in your GitHub repository settings.
+      # Example (secrets need to be configured in GitHub > Settings > Secrets and Variables > Actions):
+      #
+      # - name: Decode Keystore
+      #   id: decode_keystore
+      #   uses: timheuer/base64-to-file@v1.2
+      #   with:
+      #     fileName: ${{ github.workspace }}/keystore/release-keystore.jks # Match path in build.gradle
+      #     encodedString: ${{ secrets.KEYSTORE_BASE64 }} # Keystore file encoded as Base64 secret
+      #
+      # - name: Build Release App Bundle
+      #   run: ./gradlew bundleRelease
+      #   env:
+      #     KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+      #     KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+      #     KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+      #
+      # - name: Upload Release App Bundle
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: app-release-aab
+      #     path: app/build/outputs/bundle/release/app-release.aab
+      # --- End Optional Release Build Steps --- 

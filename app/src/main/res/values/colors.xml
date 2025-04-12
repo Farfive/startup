@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="progress_color">#4CAF50</color>
+    <color name="points_color">#2196F3</color>
+    <color name="level_color">#FF9800</color>
+    <color name="card_background">#FFFFFF</color>
+    <color name="card_stroke">#E0E0E0</color>
+    <color name="button_primary">#2196F3</color>
+    <color name="button_primary_disabled">#BDBDBD</color>
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+    <color name="premium_gold">#FFD700</color>
+    <color name="bottom_nav_item_color">#2196F3</color>
+</resources>

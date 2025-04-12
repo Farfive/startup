@@ -1,0 +1,9 @@
+<resources>
+    <!-- ... other colors ... -->
+    <color name="season_primary">#FF6200EE</color>
+    <color name="season_secondary">#FF03DAC5</color>
+    <color name="season_accent">#FFBB86FC</color>
+    <color name="season_background">#FFFFFFFF</color>
+    <color name="season_text_primary">#FF000000</color>
+    <!-- Add more specific season colors if needed -->
+</resources> 
